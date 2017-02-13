@@ -1,0 +1,29 @@
+{
+  "author": "Piotr Borysowski",
+  "name": "sheetsu-node",
+  "description": "this is descriptiom",
+  "version": "0.0.1",
+  "homepage": "https://github.com/sheetsu/sheetsu-node",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sheetsu/sheetsu-node.git"
+  },
+  "scripts": {
+    "test": "mocha test/",
+    "testNyan": "mocha test/ --reporter nyan"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "3.0.0",
+    "mock-xmlhttprequest": "^1.1.0"
+  },
+  "main": "index",
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "bugs": {
+    "url": "https://github.com/sheetsu/sheetsu-node/issues"
+  },
+  "license": "ISC"
+}
