@@ -36,7 +36,7 @@ describe('sheetsu', function() {
     };
 
     it('should run with GET method', function() {
-      return sheetsu.read().then(function(data){
+      return sheetsu.read().then(function(data) {
         assert.equal(data.method, 'GET');
       }, function(err) {
         assert.fail('sheetsu throw error');
@@ -45,7 +45,7 @@ describe('sheetsu', function() {
 
     it('should return url without limit and offset', function() {
       return sheetsu.read().then(function(data){
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1');
+        assert.equal(data.url, 'http://testAddress');
       }, function(err) {
         assert.fail('sheetsu throw error');
       });
@@ -53,7 +53,7 @@ describe('sheetsu', function() {
 
     it('should return url with limit', function() {
       return sheetsu.read(5).then(function(data){
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1?limit=5');
+        assert.equal(data.url, 'http://testAddress?limit=5');
       }, function(err) {
         assert.fail('sheetsu throw error');
       });
@@ -61,7 +61,7 @@ describe('sheetsu', function() {
 
     it('should return url with offset', function() {
       return sheetsu.read(undefined, 10).then(function(data) {
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1?offset=10');
+        assert.equal(data.url, 'http://testAddress?offset=10');
       }, function(err) {
         assert.fail('sheetsu throw error');
       });
@@ -69,7 +69,7 @@ describe('sheetsu', function() {
 
     it('should return url with offset and limit', function() {
       return sheetsu.read(5, 10).then(function(data){
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1?limit=5?offset=10');
+        assert.equal(data.url, 'http://testAddress?limit=5?offset=10');
       }, function(err) {
         assert.fail('sheetsu throw error');
       });
@@ -77,17 +77,35 @@ describe('sheetsu', function() {
 
     it('should be able to search', function() {
       return sheetsu.read(undefined, undefined, {name: 'test', foo: 'bar'}).then(function(data) {
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1/search?name=test&foo=bar');
+        assert.equal(data.url, 'http://testAddress/search?name=test&foo=bar');
+      }, function(err) {
+        assert.fail('sheetsu throw error');
+      });
+    });
+
+    it('should be able to search with limit', function() {
+      return sheetsu.read(5, undefined, {name: 'test', foo: 'bar'}).then(function(data) {
+        assert.equal(data.url, 'http://testAddress/search?name=test&foo=bar&limit=5');
       }, function(err) {
         assert.fail('sheetsu throw error');
       });
     });
 
     it('should be able to use different sheet', function() {
-      return sheetsu.read(undefined, undefined, undefined, 'Sheet3').then(function(data){
+      return sheetsu.read(undefined, undefined, undefined, 'Sheet3').then(function(data) {
         var url = data.url;
 
         assert.equal(data.url, 'http://testAddress/sheets/Sheet3');
+      }, function(err) {
+        assert.fail('sheetsu throw error');
+      });
+    });
+
+    it('should be able to use different sheet ', function() {
+      return sheetsu.read(6, undefined, undefined, 'Sheet3').then(function(data) {
+        var url = data.url;
+
+        assert.equal(data.url, 'http://testAddress/sheets/Sheet3?limit=6');
       }, function(err) {
         assert.fail('sheetsu throw error');
       });
@@ -133,6 +151,14 @@ describe('sheetsu', function() {
       });
     });
 
+    it('should return correct url', function() {
+      return sheetsu.create().then(function(data){
+        assert.equal(data.url, 'http://testAddress');
+      }, function(err) {
+        assert.fail('sheetsu throw error');
+      });
+    });
+
     it('should return url different Sheet', function() {
       return sheetsu.create(undefined, 'Sheet2').then(function(data){
         assert.equal(data.url, 'http://testAddress/sheets/Sheet2');
@@ -167,7 +193,7 @@ describe('sheetsu', function() {
 
     it('should run with column name and value', function() {
       return sheetsu.delete('column', 'value').then(function(data){
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1/column/value');
+        assert.equal(data.url, 'http://testAddress/column/value');
       }, function(err) {
         assert.fail('sheetsu throw error');
       });

@@ -3,7 +3,7 @@ function create(newObject, sheet) {
 
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();;
-    var sheetParam = (!sheet) ? 'Sheet1' : sheet;
+    var sheetParam = (!sheet) ? '' : '/sheets/' + sheet;
     var isArray = Array.isArray(newObject);
     var data;
 
@@ -15,7 +15,7 @@ function create(newObject, sheet) {
       data = JSON.stringify(newObject);
     }
 
-    var url = config.address + '/sheets/' + sheetParam;
+    var url = config.address + sheetParam;
 
     xhr.open("POST", url, true);
 
@@ -38,9 +38,11 @@ function read(limit, offset, search, sheet) {
 
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();
-    var sheetParam = (!sheet) ? 'Sheet1' : sheet;
-    var limitParam = (!limit) ? '' : '?limit=' + limit;
-    var offsetParam = (!offset) ? '' : '?offset=' + offset;
+    var sign = (search) ? '&' : '?';
+
+    var sheetParam = (!sheet) ? '' : '/sheets/' + sheet;
+    var limitParam = (!limit) ? '' : sign + 'limit=' + limit;
+    var offsetParam = (!offset) ? '' : sign + 'offset=' + offset;
     var searchParam = (!search) ? '' : '/search';
     var searchKeys = (!search) ? [] : Object.keys(search);
 
@@ -54,8 +56,7 @@ function read(limit, offset, search, sheet) {
       }
     }
 
-    var url = config.address + '/sheets/' + sheetParam + limitParam + offsetParam + searchParam;
-
+    var url = config.address + sheetParam + searchParam + limitParam + offsetParam;
     xhr.open("GET", url, true);
 
     xhr.onload = function (e) {
@@ -80,13 +81,13 @@ function deleteFunc(columnName, value, sheet) {
 
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();;
-    var sheetParam = (!sheet) ? 'Sheet1' : sheet;
+    var sheetParam = (!sheet) ? '' : '/sheets/' + sheet;
 
     if(!columnName) {
       reject('no column name');
     }
 
-    var url = config.address + '/sheets/' + sheetParam + '/' + columnName+  '/' + value;
+    var url = config.address + sheetParam + '/' + columnName +  '/' + value;
 
     xhr.open("DELETE", url, true);
 
