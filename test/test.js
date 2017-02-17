@@ -69,7 +69,7 @@ describe('sheetsu', function() {
 
     it('should return url with offset and limit', function() {
       return sheetsu.read(5, 10).then(function(data){
-        assert.equal(data.url, 'http://testAddress?limit=5?offset=10');
+        assert.equal(data.url, 'http://testAddress?limit=5&offset=10');
       }, function(err) {
         assert.fail('sheetsu throw error');
       });

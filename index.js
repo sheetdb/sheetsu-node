@@ -2,7 +2,7 @@ function create(newRow, sheet) {
   var config = this.config;
 
   return new Promise(function(resolve, reject) {
-    var xhr = new XMLHttpRequest();;
+    var xhr = new XMLHttpRequest();
     var sheetParam = (!sheet) ? '' : '/sheets/' + sheet;
     var isArray = Array.isArray(newRow);
     var data;
@@ -38,11 +38,11 @@ function read(limit, offset, search, sheet) {
 
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();
-    var sign = (search) ? '&' : '?';
-
+    var limitSign = (search) ? '&' : '?';
+    var offsetSign = (search || limit) ? '&' : '?';
     var sheetParam = (!sheet) ? '' : '/sheets/' + sheet;
-    var limitParam = (!limit) ? '' : sign + 'limit=' + limit;
-    var offsetParam = (!offset) ? '' : sign + 'offset=' + offset;
+    var limitParam = (!limit) ? '' : limitSign + 'limit=' + limit;
+    var offsetParam = (!offset) ? '' : offsetSign + 'offset=' + offset;
     var searchParam = (!search) ? '' : '/search';
     var searchKeys = (!search) ? [] : Object.keys(search);
 
