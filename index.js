@@ -1,23 +1,23 @@
-function create(newObject, sheet) {
+function create(newRow, sheet) {
   var config = this.config;
 
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();;
     var sheetParam = (!sheet) ? '' : '/sheets/' + sheet;
-    var isArray = Array.isArray(newObject);
+    var isArray = Array.isArray(newRow);
     var data;
 
     if (isArray) {
       data = JSON.stringify({
-        rows: newObject,
+        rows: newRow,
       });
     } else {
-      data = JSON.stringify(newObject);
+      data = JSON.stringify(newRow);
     }
 
     var url = config.address + sheetParam;
 
-    xhr.open("POST", url, true);
+    xhr.open('POST', url, true);
 
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
@@ -57,7 +57,7 @@ function read(limit, offset, search, sheet) {
     }
 
     var url = config.address + sheetParam + searchParam + limitParam + offsetParam;
-    xhr.open("GET", url, true);
+    xhr.open('GET', url, true);
 
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
@@ -73,7 +73,34 @@ function read(limit, offset, search, sheet) {
   });
 }
 
-function update() {
+function update(columnName, value, newRow, updateWhole, sheet) {
+  var config = this.config;
+
+  return new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    var sheetParam = (!sheet) ? '' : '/sheets/' + sheet;
+    var data = JSON.stringify(newRow);
+
+    if(!columnName) {
+      reject('no column name');
+    }
+
+    var url = config.address + sheetParam + '/' + columnName +  '/' + value;
+
+    xhr.open(updateWhole ? 'PUT' : 'PATCH', url, true);
+
+    xhr.onload = function (e) {
+      if (xhr.readyState === 4) {
+        resolve(xhr);
+      }
+    };
+
+    xhr.onerror = function (e) {
+      reject(e);
+    };
+
+    xhr.send(data);
+  });
 }
 
 function deleteFunc(columnName, value, sheet) {
@@ -89,7 +116,7 @@ function deleteFunc(columnName, value, sheet) {
 
     var url = config.address + sheetParam + '/' + columnName +  '/' + value;
 
-    xhr.open("DELETE", url, true);
+    xhr.open('DELETE', url, true);
 
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
