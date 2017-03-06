@@ -15,7 +15,7 @@
   "dependencies": {},
   "devDependencies": {
     "mocha": "3.0.0",
-    "mock-xmlhttprequest": "^1.1.0"
+    "xhr-mock": "^1.7.0"
   },
   "main": "index",
   "optionalDependencies": {},
