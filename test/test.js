@@ -1,100 +1,77 @@
 var sheetsuAPI = require('../');
 var assert = require('assert');
-var MockXMLHttpRequest  =  require('mock-xmlhttprequest');
-global.XMLHttpRequest = MockXMLHttpRequest;
-
+var mock = require('xhr-mock');
 describe('sheetsu', function() {
-  describe('config', function() {
-    it('should throw error when no address', function() {
-      assert.throws(function(){
+  describe('contructor', function() {
+    it('should throw error when param has no address', function() {
+      assert.throws(function() {
         sheetsuAPI();
       }, Error);
     });
-    it('should not throw error when is address', function() {
-      sheetsuAPI.bind(sheetsuAPI, {
-        address: 'http://',
+
+    it('should not throw error when param has valid address', function() {
+      mock.get('https://sheetsu.com', function(req, res) {
+        return res.status(200).body('<h1>Sheetsu</h1>');
       });
+
       assert.doesNotThrow(function() {
         sheetsuAPI({
-          address: 'http://',
+          address: 'https://sheetsu.com',
         });
       }, Error);
     });
-  });
 
-  describe('read function without security tokens', function() {
-    var sheetsu = sheetsuAPI({
-      address: 'http://testAddress',
-    });
-
-    MockXMLHttpRequest.onSend = function(xhr) {
-    var response = {
-      result: 'success',
-    };
-    var responseHeaders = {
-      'Content-Type': 'application/json',
-    }
-      xhr.respond(200, responseHeaders, JSON.stringify(response));
-    };
-
-    it('should return url without limit and offset', function() {
-      return sheetsu.read().then(function(data){
-        var url = data.url;
-
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1');
-      }, function(err) {
-        assert.fail('sheetsu throw error');
+    it('should throw error when wrong address', function() {
+      mock.get('http://differentAddr', function(req, res) {
+        return res.status(200).body('<h1>Sheetsu</h1>');
       });
+
+      assert.throws(function() {
+        sheetsuAPI({
+          address: 'http://differentAddr',
+        });
+      }, Error);
     });
 
-    it('should return url with limit', function() {
-      return sheetsu.read(5).then(function(data){
-        var url = data.url;
-
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1?limit=5');
-      }, function(err) {
-        assert.fail('sheetsu throw error');
+    //TODO check address
+    it('should valid correct address', function() {
+      mock.get('https://sheetsu.com', function(req, res) {
+        return res.status(200).body('<h1>Sheetsu</h1>');
       });
+
+      assert.doesNotThrow(function() {
+        sheetsuAPI({
+          address: 'sddfsjh34f3dsa',
+        });
+      }, Error);
     });
 
-    it('should return url with offset', function() {
-      return sheetsu.read(undefined, 10).then(function(data){
-        var url = data.url;
-
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1?offset=10');
-      }, function(err) {
-        assert.fail('sheetsu throw error');
-      });
-    });
-
-    it('should return url with offset and limit', function() {
-      return sheetsu.read(5, 10).then(function(data){
-        var url = data.url;
-
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1?limit=5?offset=10');
-      }, function(err) {
-        assert.fail('sheetsu throw error');
-      });
-    });
-
-    it('should be able to search', function() {
-      return sheetsu.read(undefined, undefined, {name: 'test', foo: 'bar'}).then(function(data){
-        var url = data.url;
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet1/search?name=test&foo=bar');
-      }, function(err) {
-        assert.fail('sheetsu throw error');
-      });
-    });
-
-    it('should use different sheet', function() {
-      return sheetsu.read(undefined, undefined, undefined, 'Sheet3').then(function(data){
-        var url = data.url;
-
-        assert.equal(data.url, 'http://testAddress/sheets/Sheet3');
-      }, function(err) {
-        assert.fail('sheetsu throw error');
-      });
-    });
+    // it('should use only secure connections (https://)', function() {
+    //   assert.doesNotThrow(function() {
+    //     sheetsuAPI({
+    //       address: 'https://sheetsu.com',
+    //     });
+    //   }, Error);
+    // });
+    //
+    // it('should use correct User-Agent header when different version of API', function() {
+    //   assert.doesNotThrow(function() {
+    //     sheetsuAPI({
+    //       address: 'https://sheetsu.com',
+    //       version: '1.2',
+    //     });
+    //   }, Error);
+    // });
+    //
+    // it('should use Basic Authentication when api_key and api_secret available', function() {
+    //   assert.doesNotThrow(function() {
+    //     sheetsuAPI({
+    //       address: 'https://sheetsu.com',
+    //       api_key: '3434',
+    //       api_secret: '63532',
+    //     });
+    //   }, Error);
+    // });
 
   });
 });
