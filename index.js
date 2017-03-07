@@ -3,6 +3,7 @@ var createFunc = require('./lib/create.js');
 var updateFunc = require('./lib/update.js');
 var deleteFunc = require('./lib/delete.js');
 var validAddress = require('./lib/validAddress.js');
+var isURL = require('./lib/isURL.js');
 
 var sheetsuNode = function(config) {
   var configParam = config || {};
@@ -17,6 +18,12 @@ var sheetsuNode = function(config) {
 
   if(!validAddress(configParam.address)) {
     throw Error('wrong address param.');
+  }
+
+  if(!isURL(configParam.address)) {
+    configParam.address = 'https://sheetsu.com/apis/v' +
+      configParam.version + '/' +
+      configParam.address;
   }
 
   var address = configParam.address;
