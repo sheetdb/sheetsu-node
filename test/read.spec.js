@@ -167,7 +167,7 @@ describe('sheetsu', function() {
       });
     });
 
-    it('should be able to use different sheet', function() {
+    it('should be able to use different sheet when limit set', function() {
       mock.setup();
       mock.get('https://sheetsu.com/apis/v1.0/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
         return res.status(200).body(req);
