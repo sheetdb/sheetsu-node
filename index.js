@@ -1,3 +1,11 @@
+// sheetsu = require(sheetsu-node);
+// (ES6+) import sheetsu from 'sheetsu-node';
+//
+// sheetsu.create(newRow, sheet);
+// sheetsu.read(limit, offset, search, sheet);
+// sheetsu.update(columnName, value, newRow, updateWhole, sheet);
+// sheetsu.delete(columnName, value, sheet);
+
 var readFunc = require('./lib/read.js');
 var createFunc = require('./lib/create.js');
 var updateFunc = require('./lib/update.js');
