@@ -1,11 +1,14 @@
 {
   "author": "Piotr Borysowski",
   "contributors": [
-    { "name": "Michael Oblak", "email": "m@sheetsu.com" }
+    {
+      "name": "Michael Oblak",
+      "email": "m@sheetsu.com"
+    }
   ],
   "name": "sheetsu-node",
   "description": "Official Sheetsu API bindings for Node.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/sheetsu/sheetsu-node",
   "repository": {
     "type": "git",
