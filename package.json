@@ -1,13 +1,27 @@
 {
   "author": "Piotr Borysowski",
+  "contributors": [
+    {
+      "name": "Michael Oblak",
+      "email": "m@sheetsu.com"
+    }
+  ],
   "name": "sheetsu-node",
-  "description": "this is descriptiom",
-  "version": "0.0.1",
+  "description": "Official Sheetsu API bindings for Node.js",
+  "version": "0.0.2",
   "homepage": "https://github.com/sheetsu/sheetsu-node",
   "repository": {
     "type": "git",
     "url": "git://github.com/sheetsu/sheetsu-node.git"
   },
+  "keywords": [
+    "sheetsu",
+    "api",
+    "google spreadsheets",
+    "google spreadsheets api",
+    "spreadsheets",
+    "spreadsheets api"
+  ],
   "scripts": {
     "test": "mocha test/",
     "nyan-test": "mocha test/ --reporter nyan"
