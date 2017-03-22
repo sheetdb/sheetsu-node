@@ -16,7 +16,7 @@ npm install sheetsu-node --save
 You need to create a new sheetsu function, and populate it with your Sheetsu API URL. You can find this URL on [Sheetsu Dashboard](https://sheetsu.com/your-apis).
 
 ```js
-var sheetsu = require(sheetsu-node);
+var sheetsu = require('sheetsu-node');
 
 // create a config file
 var config = {
