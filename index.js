@@ -13,6 +13,7 @@ var deleteFunc = require('./lib/delete.js');
 var validAddress = require('./lib/validAddress.js');
 var isURL = require('./lib/isURL.js');
 
+
 var sheetsuNode = function(config) {
   var configParam = config || {};
 

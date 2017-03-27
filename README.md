@@ -63,7 +63,11 @@ Sheetsu gives you the ability to use full CRUD on your Google Spreadsheet. Remem
 To add data to Google Spreadsheets, send a hash or an array of hashes.
 ```js
 // Adds single row
-client.create({ id: 7, name: "Glenn", score: "69" })
+client.create({ id: 7, name: "Glenn", score: "69" }).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 
 /// Adds bunch of rows
 rows = [
@@ -71,13 +75,23 @@ rows = [
   { id: 8, name: "Brian", score: "77" },
   { id: 9, name: "Joe", score: "45" }
 ]
-client.create(rows);
+client.create(rows).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
+
 ```
 
 By default, all writes are performed on the first sheet (worksheet). Pass name of a sheet as a 2nd param to add data to other worksheet.
 ```js
 // Adds single row to worksheet named "Sheet3"
-client.create({ id: 7, name: "Glenn", score: "69" }, "Sheet3")
+client.create({ id: 7, name: "Glenn", score: "69" }, "Sheet3").then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
+
 ```
 
 On success returns a hash or an array of hashes with created values.
@@ -87,7 +101,11 @@ On success returns a hash or an array of hashes with created values.
 
 Read the whole sheet
 ```js
-client.read(limit, offset, search, sheet);
+client.read(limit, offset, search, sheet).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 ```
 
 You can pass hash with options
@@ -99,10 +117,18 @@ You can pass hash with options
 
 ```js
 // Get first two rows from worksheet named "Sheet2"
-client.read(2, 0, undefined,  "Sheet2");
+client.read(2, 0, undefined,  "Sheet2").then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 
 // Get 5th record from worksheet named "Sheet3"
-client.read(2, 4, undefined, 'Sheet3');
+client.read(2, 4, undefined, 'Sheet3').then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 ```
 
 #### search
@@ -112,15 +138,28 @@ To get rows that match search criteria, pass a hash with search params
 
 ```js
 // Get all rows where column 'id' is 'foo' and column 'value' is 'bar'
-client.read(undefined, undefined, { id: "foo", value: "bar" });
+client.read(undefined, undefined, { id: "foo", value: "bar" }).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 
 // Get all rows where column 'First name' is 'Peter' and column 'Score' is '42'
-client.read(undefined, undefined, { 'first name': 'Peter', 'Score': 42 });
+client.read(undefined, undefined, { 'first name': 'Peter', 'Score': 42 }).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 
 
 // Get first two row where column 'First name' is 'Peter',
 // column 'Score' is '42' from sheet named "Sheet3"
-client.read(2, undefined, { 'first name': 'Peter', 'Score': 42 }, 'Sheet3');
+client.read(2, undefined, { 'first name': 'Peter', 'Score': 42 }, 'Sheet3').then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
+
 ```
 
 On success returns an array of hashes.
@@ -131,7 +170,11 @@ On success returns an array of hashes.
 To update row(s), pass column name and its value which is used to find row(s).
 
 ``` js
-client.update(columnName, value, newRow, updateWhole, sheet);
+client.update(columnName, value, newRow, updateWhole, sheet).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 ```
 
 ```js
@@ -140,7 +183,11 @@ client.update(
   'name', // column name
   'Peter', // value to search for
   { 'score': 99, 'last name': 'Griffin' }, // hash with updates
-);
+).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 ```
 
 By default, [PATCH request](https://sheetsu.com/docs#patch) is sent, which is updating only values which are in the hash passed to the method. To send [PUT request](https://sheetsu.com/docs#put), pass 4th argument being `true`. [Read more about the difference between PUT and PATCH in our docs](https://sheetsu.com/docs#patch).
@@ -154,7 +201,11 @@ client.update(
   'Peter', // value to search for
   { 'score': 99, 'last name' => 'Griffin' }, // hash with updates
   true, // nullify all fields not passed in the hash above
-);
+).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 
 ```
 
@@ -169,7 +220,11 @@ client.update(
   { 'score': 99, 'last name' => 'Griffin' }, // hash with updates
   true, // nullify all fields not passed in the hash above
   'Sheet3',
-);
+).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 ```
 
 On success returns an array of hashes with updated values.
@@ -184,7 +239,11 @@ To delete row(s), pass column name and its value which is used to find row(s).
 client.delete(
   'name', // column name
   'Peter', // value to search for
-);
+).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 ```
 
 You can pass sheet name as a 3rd argument. All operations are performed on the first sheet, by default.
@@ -194,7 +253,11 @@ client.delete(
   'name', // column name
   'Peter', // value to search for
   'Sheet3',
-);
+).then(function(data) {
+  console.log(data);
+}, function(err){
+  console.log(err);
+});
 ```
 
 If success returns `:ok` symbol.
