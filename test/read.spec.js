@@ -15,7 +15,7 @@ describe('sheetsu', function() {
         return res.status(200).body('test');
       });
 
-      return sheetsu.read().then(function(data) {
+      return sheetsu.read({}).then(function(data) {
         assert.equal(data, 'test');
       }, function(err) {
         assert.fail('sheetsu throw error');
@@ -83,7 +83,7 @@ describe('sheetsu', function() {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read(5).then(function(data){
+      return sheetsu.read({ limit: 5 }).then(function(data){
         assert.equal(data._url, 'https://sheetsu.com/apis/v1.0/dfsdf43fsd?limit=5');
       }, function(err) {
         assert.fail('sheetsu throw error');
@@ -98,7 +98,7 @@ describe('sheetsu', function() {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read(undefined, 10).then(function(data) {
+      return sheetsu.read({ offset: 10 }).then(function(data) {
         assert.equal(data._url, 'https://sheetsu.com/apis/v1.0/dfsdf43fsd?offset=10');
       }, function(err) {
         assert.fail('sheetsu throw error');
@@ -113,7 +113,7 @@ describe('sheetsu', function() {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read(5, 10).then(function(data){
+      return sheetsu.read({ limit: 5, offset: 10 }).then(function(data){
         assert.equal(data._url, 'https://sheetsu.com/apis/v1.0/dfsdf43fsd?limit=5&offset=10');
       }, function(err) {
         assert.fail('sheetsu throw error');
@@ -128,7 +128,7 @@ describe('sheetsu', function() {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read(undefined, undefined, {name: 'test', foo: 'bar'}).then(function(data) {
+      return sheetsu.read({ search: {name: 'test', foo: 'bar'} }).then(function(data) {
         assert.equal(data._url, 'https://sheetsu.com/apis/v1.0/dfsdf43fsd/search?name=test&foo=bar');
       }, function(err) {
         assert.fail('sheetsu throw error');
@@ -143,7 +143,7 @@ describe('sheetsu', function() {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read(5, undefined, {name: 'test', foo: 'bar'}).then(function(data) {
+      return sheetsu.read({ limit: 5, search: {name: 'test', foo: 'bar'} }).then(function(data) {
         assert.equal(data._url, 'https://sheetsu.com/apis/v1.0/dfsdf43fsd/search?name=test&foo=bar&limit=5');
       }, function(err) {
         assert.fail('sheetsu throw error');
@@ -158,7 +158,7 @@ describe('sheetsu', function() {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read(undefined, undefined, undefined, 'Sheet3').then(function(data) {
+      return sheetsu.read({ sheet: 'Sheet3' }).then(function(data) {
         assert.equal(data._url, 'https://sheetsu.com/apis/v1.0/dfsdf43fsd/sheets/Sheet3');
       }, function(err) {
         assert.fail('sheetsu throw error');
@@ -173,7 +173,7 @@ describe('sheetsu', function() {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read(6, undefined, undefined, 'Sheet3').then(function(data) {
+      return sheetsu.read({ limit: 6, sheet: 'Sheet3' }).then(function(data) {
         assert.equal(data._url, 'https://sheetsu.com/apis/v1.0/dfsdf43fsd/sheets/Sheet3?limit=6');
       }, function(err) {
         assert.fail('sheetsu throw error');

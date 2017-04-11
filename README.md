@@ -101,7 +101,7 @@ On success returns a hash or an array of hashes with created values.
 
 Read the whole sheet
 ```js
-client.read(limit, offset, search, sheet).then(function(data) {
+client.read({ limit, offset, search, sheet }).then(function(data) {
   console.log(data);
 }, function(err){
   console.log(err);
@@ -114,17 +114,16 @@ You can pass hash with options
   - `search` - hash with search params [(more below)](#search)
   - `sheet` - get data from named worksheet
 
-
 ```js
 // Get first two rows from worksheet named "Sheet2"
-client.read(2, 0, undefined,  "Sheet2").then(function(data) {
+client.read({ limit: 2, sheet: "Sheet2" }).then(function(data) {
   console.log(data);
 }, function(err){
   console.log(err);
 });
 
-// Get 5th record from worksheet named "Sheet3"
-client.read(2, 4, undefined, 'Sheet3').then(function(data) {
+// Get 5th and 6th record from worksheet named "Sheet3"
+client.read({ limit: 2, offset: 4, sheet: 'Sheet3' }).then(function(data) {
   console.log(data);
 }, function(err){
   console.log(err);
@@ -138,14 +137,14 @@ To get rows that match search criteria, pass a hash with search params
 
 ```js
 // Get all rows where column 'id' is 'foo' and column 'value' is 'bar'
-client.read(undefined, undefined, { id: "foo", value: "bar" }).then(function(data) {
+client.read({ search: { id: "foo", value: "bar" } }).then(function(data) {
   console.log(data);
 }, function(err){
   console.log(err);
 });
 
 // Get all rows where column 'First name' is 'Peter' and column 'Score' is '42'
-client.read(undefined, undefined, { 'first name': 'Peter', 'Score': 42 }).then(function(data) {
+client.read({ search: { 'first name': 'Peter', 'Score': 42 } }).then(function(data) {
   console.log(data);
 }, function(err){
   console.log(err);
@@ -154,7 +153,11 @@ client.read(undefined, undefined, { 'first name': 'Peter', 'Score': 42 }).then(f
 
 // Get first two row where column 'First name' is 'Peter',
 // column 'Score' is '42' from sheet named "Sheet3"
-client.read(2, undefined, { 'first name': 'Peter', 'Score': 42 }, 'Sheet3').then(function(data) {
+client.read({
+  limit: 2,
+  search: { 'first name': 'Peter', 'Score': 42 },
+  sheet: 'Sheet3'
+}).then(function(data) {
   console.log(data);
 }, function(err){
   console.log(err);
