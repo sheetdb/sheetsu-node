@@ -185,7 +185,7 @@ client.update(columnName, value, newRow, updateWhole, sheet).then(function(data)
 client.update(
   'name', // column name
   'Peter', // value to search for
-  { 'score': 99, 'last name': 'Griffin' }, // hash with updates
+  { 'score': 99, 'last name': 'Griffin' } // hash with updates
 ).then(function(data) {
   console.log(data);
 }, function(err){
@@ -202,8 +202,8 @@ By default, [PATCH request](https://sheetsu.com/docs#patch) is sent, which is up
 client.update(
   'name', // column name
   'Peter', // value to search for
-  { 'score': 99, 'last name' => 'Griffin' }, // hash with updates
-  true, // nullify all fields not passed in the hash above
+  { 'score': 99, 'last name': 'Griffin' }, // hash with updates
+  true // nullify all fields not passed in the hash above
 ).then(function(data) {
   console.log(data);
 }, function(err){
@@ -220,9 +220,9 @@ To perform `#update` on different than the first sheet, pass sheet name as a 5th
 client.update(
   'name', // column name
   'Peter', // value to search for
-  { 'score': 99, 'last name' => 'Griffin' }, // hash with updates
+  { 'score': 99, 'last name': 'Griffin' }, // hash with updates
   true, // nullify all fields not passed in the hash above
-  'Sheet3',
+  'Sheet3'
 ).then(function(data) {
   console.log(data);
 }, function(err){
@@ -241,7 +241,7 @@ To delete row(s), pass column name and its value which is used to find row(s).
 // Delete all rows where 'name' equals 'Peter'
 client.delete(
   'name', // column name
-  'Peter', // value to search for
+  'Peter' // value to search for
 ).then(function(data) {
   console.log(data);
 }, function(err){
@@ -255,7 +255,7 @@ You can pass sheet name as a 3rd argument. All operations are performed on the f
 client.delete(
   'name', // column name
   'Peter', // value to search for
-  'Sheet3',
+  'Sheet3'
 ).then(function(data) {
   console.log(data);
 }, function(err){
