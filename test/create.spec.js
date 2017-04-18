@@ -54,9 +54,8 @@ describe('sheetsu', function() {
 
       return sheetsu.create({}).then(function(data) {
         assert.equal(data["accept"], "application/vnd.sheetsu.3+json");
-        assert.equal(data["accept-encoding"], "gzip, deflate");
         assert.equal(data["content-type"], "application/json");
-        assert.equal(data["user-agent"], "Sheetsu-Node/1.0");
+        assert.equal(data["x-user-agent"], "Sheetsu-Node/1.0");
       }, function(err) {
         assert.fail('sheetsu throw error');
       }).then(function(){
