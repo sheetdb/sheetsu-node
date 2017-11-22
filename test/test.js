@@ -42,7 +42,7 @@ describe('sheetsu', function() {
           address: 'sddfsjh34f3dsa',
         });
 
-        assert.equal(sheetsu.config.address, 'https://sheetsu.com/apis/v1.0/sddfsjh34f3dsa');
+        assert.equal(sheetsu.config.address, 'https://sheetsu.com/apis/v1.0on/sddfsjh34f3dsa');
     });
 
     it('should valid correct address when only id is available and different API version', function() {

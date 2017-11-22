@@ -11,7 +11,7 @@ describe('sheetsu', function() {
 
     it('should run with PUT method', function() {
       mock.setup();
-      mock.put('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.put('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(200).body('test');
       });
 
@@ -26,7 +26,7 @@ describe('sheetsu', function() {
 
     it('should run with PATCH method', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(200).body('test');
       });
 
@@ -41,7 +41,7 @@ describe('sheetsu', function() {
 
     it('should run with Http Basic Auth', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(200).body(req._headers);
       });
 
@@ -62,14 +62,14 @@ describe('sheetsu', function() {
 
     it('should run with correct headers', function() {
       mock.setup();
-      mock.put('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.put('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(200).body(req._headers);
       });
 
       return sheetsu.update('column', 'test', undefined, true).then(function(data) {
         assert.equal(data["accept"], "application/vnd.sheetsu.3+json");
         assert.equal(data["content-type"], "application/json");
-        assert.equal(data["x-user-agent"], "Sheetsu-Node/1.0");
+        assert.equal(data["x-user-agent"], "Sheetsu-Node/1.0on");
       }, function(err) {
         assert.fail('sheetsu throw error');
       }).then(function(){
@@ -81,11 +81,11 @@ describe('sheetsu', function() {
 
     it('should run with column name and value', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(200).body(req);
       });
       return sheetsu.update('column', 'test', undefined, false).then(function(data){
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test');
+        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test');
       }, function(err) {
         assert.fail('sheetsu throw error');
       }).then(function(){
@@ -107,7 +107,7 @@ describe('sheetsu', function() {
 
     it('should run with array data', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(200).body('{"test":3}');
       });
 
@@ -122,12 +122,12 @@ describe('sheetsu', function() {
 
     it('should return url different Sheet', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/sheets/Sheet3/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3/column/test', function(req, res) {
         return res.status(200).body(req);
       });
 
       return sheetsu.update('column', 'test', {}, false, 'Sheet3').then(function(data){
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0/dfsdf43fsd/sheets/Sheet3/column/test');
+        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3/column/test');
       }, function(err) {
         assert.fail('sheetsu throw error');
       });
@@ -135,7 +135,7 @@ describe('sheetsu', function() {
 
     it('should return error when 404', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(404).body(req._xhr);
       });
 
@@ -149,7 +149,7 @@ describe('sheetsu', function() {
 
     it('should return error when 429', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(429).body(req._xhr);
       });
 
@@ -163,7 +163,7 @@ describe('sheetsu', function() {
 
     it('should return error when 403', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(403).body(req._xhr);
       });
 
@@ -178,7 +178,7 @@ describe('sheetsu', function() {
 
     it('should return error when 409', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(409).body(req._xhr);
       });
 
@@ -193,7 +193,7 @@ describe('sheetsu', function() {
 
     it('should return error when 401', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(401).body(req._xhr);
       });
 
@@ -207,7 +207,7 @@ describe('sheetsu', function() {
 
     it('should return error when 500', function() {
       mock.setup();
-      mock.patch('https://sheetsu.com/apis/v1.0/dfsdf43fsd/column/test', function(req, res) {
+      mock.patch('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/column/test', function(req, res) {
         return res.status(500).body(req._xhr);
       });
 
