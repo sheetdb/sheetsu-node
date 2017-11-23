@@ -17,7 +17,7 @@ var isURL = require('./lib/isURL.js');
 var sheetsuNode = function(config) {
   var configParam = config || {};
 
-  configParam.version = configParam.version || '1.0';
+  configParam.version = configParam.version || '1.0on';
   configParam.api_key = configParam.api_key || '';
   configParam.api_secret = configParam.api_secret || '';
 
